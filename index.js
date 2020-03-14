@@ -14,6 +14,12 @@ app.post('/createNote', (req, res) => {
         .then(() => res.sendStatus(200))
 })
 
+app.get('/getNotes', (req, res) => {
+    db
+        .getNotes()
+        .then((data) => res.send(JSON.stringify(data)))
+})
+
 app.listen(7555, () => {
     console.log('Server running on http://localhost:7555')
 })

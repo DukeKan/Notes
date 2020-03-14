@@ -1,18 +1,69 @@
 <!DOCTYPE html>
 <html>
+<style>
+    #createFormContainer {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        padding-bottom: 30px;
+        flex-direction: column;
+    }
+    
+    #createNote {
+        align-items: center;
+    }
+    
+    #tableContainer {
+        overflow-x: auto
+    }
+    
+    #notesTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    th {
+        background-color: rgb(157, 196, 159);
+        color: white;
+    }
+    
+    tr:hover {
+        background-color: #a9eee2;
+    }
+    
+    table,
+    th,
+    td {
+        border-bottom: 1px solid #ddd;
+        padding: 20px;
+        text-align: left;
+    }
+</style>
 
 <head>
     <title>Notes</title>
 </head>
 
-<body>
-    <form class="createNote">
-        <h1>Create a new note</h1>
-        <input type="text" class="name">
-        <input type="text" class="description">
-        <input type="submit" value="Create note">
-    </form>
-    <script src="/app.js"></script>
-</body>
+<div id="createFormContainer">
+    <h1>Create a new note</h1>
+
+    <body>
+        <form id="createNote">
+            <input type="text" class="name">
+            <input type="text" class="description">
+            <input type="submit" value="Create note">
+        </form>
+        <script src="/app.js"></script>
+    </body>
+</div>
+
+<!-- Filled by JS -->
+<div id="tableContainer">
+    <table id="notesTable" />
 
 </html>
+</div>
