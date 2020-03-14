@@ -1,9 +1,13 @@
 const CreateNote = document.querySelector('.createNote')
 CreateNote.addEventListener('submit', (e) => {
     e.preventDefault()
-    const username = CreateNote.querySelector('.name').value
-    const password = CreateNote.querySelector('.description').value
-    post('/createNote', { username, password })
+    const name = CreateNote.querySelector('.name').value
+    const description = CreateNote.querySelector('.description').value
+    post('/createNote', { name, description })
+        .then(({ status }) => {
+            if (status === 200) alert('Note is created')
+            else alert('Note creation failed')
+        })
 })
 
 function post(path, data) {
