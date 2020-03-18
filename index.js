@@ -1,11 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const db = require('./db')
-const jwtmodule = require('./jwt')
+const logger = require('./middlewares/log-middleware')
+const auth = require('./middlewares/auth')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 app.use(express.static('public'))
 app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(logger.logger)
+app.use(auth.auth)
+
 app.post('/createNote', (req, res) => {
     db
         .createNote({
@@ -16,8 +22,6 @@ app.post('/createNote', (req, res) => {
 })
 
 app.get('/getNotes', (req, res) => {
-    jwtmodule.decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRobWljcm9zZXJ2aWNlIiwidXNlcklkIjoidGVzdCJ9.IaGKv2ZCr88Bjyg0evDF7cs6uR3887QIj-o5Mcl5LXU');
-
     db
         .getNotes()
         .then((data) => res.send(JSON.stringify(data)))
