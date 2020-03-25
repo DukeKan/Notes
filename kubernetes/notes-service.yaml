@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: notes
+  name: notes
+spec:
+  ports:
+  - name: 7555-7555
+    port: 7555
+    protocol: TCP
+    targetPort: 7555
+  selector:
+    app: notes
+  type: LoadBalancer
