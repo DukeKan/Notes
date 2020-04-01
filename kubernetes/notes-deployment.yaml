@@ -16,9 +16,20 @@ spec:
     spec:
       containers:
         - name: notes
-          image: docker.pkg.github.com/dukekan/notes/notes:1.0
+          image: docker.pkg.github.com/dukekan/notes/notes:1.2
           ports:
             - containerPort: 7555
+          env:
+          - name: JWT_AUTH_SERVER_URL
+            valueFrom:
+              configMapKeyRef:
+                name: notes-config
+                key: jwt_auth_server_url
+          - name: NOTES_URL
+            valueFrom:
+              configMapKeyRef:
+                name: notes-config
+                key: notes_url
       imagePullSecrets:
         - name: notes-secret # used to pull images from github
 

@@ -7,8 +7,7 @@ const auth = async(req, res, next) => {
 
     const cookieName = properties.get('jwt.cookieName');
     const jwtUserIdClaim = properties.get('jwt.userIdClaim');
-    const authServer = properties.get('jwt.authServerUrl');
-
+    const authServer = getAuthServerUrl();
     const jwtCookieValue = req.cookies[cookieName];
 
     if (!jwtCookieValue) {
@@ -30,6 +29,23 @@ const auth = async(req, res, next) => {
     }
 
     next()
+}
+
+const getAuthServerUrl = function() {
+    console.log('process.env.NOTES_SEVICE_HOST: %s', process.env.NOTES_SEVICE_HOST);
+    console.log('process.env.NOTES_SEVICE_HOST: %s', process.env.NOTES_SEVICE_HOST);
+    console.log('process.env.JWT_AUTH_SERVER_URL: %s', process.env.JWT_AUTH_SERVER_URL);
+    console.log('process.env.NOTES_URL: %s', process.env.NOTES_URL);
+
+    if (process.env.JWT_AUTH_SERVER_URL) {
+        const authProviderUrl = process.env.JWT_AUTH_SERVER_URL + '?redirect=' + process.env.NOTES_URL;
+        console.log('Auth provider url from environment varables: %s', authProviderUrl);
+        return authProviderUrl;
+    } else {
+        const authProviderUrl = properties.get('jwt.authServerUrl');
+        console.log('Auth provider url from configuration file: %s', authProviderUrl);
+        return authProviderUrl;
+    }
 }
 
 module.exports.auth = auth;
